@@ -62,15 +62,17 @@ while True:
     mails_list.append(mail_info)
 
     next_letter = driver.find_element_by_class_name('portal-menu-element_next')
-    next_letter.click()
 
+    next_letter.click()
+    if next_letter .get_attribute('class') == "button2 button2_has - ico button2_arrow - down button2_pure button2_short button2_compact button2_ico - text - topbutton2_hover - support button2_disabled js - shortcut":
+        break
 
 client = MongoClient('localhost', 27017)
 db = client['letters_parser']
 
-db.letters_parser.insert_many(more_interesting)
-db.letters_parser.update_many({'link': more_interesting['link']},
-                                              {'$set': more_interesting},
+db.letters_parser.insert_many(mails_list)
+db.letters_parser.update_many({'link': mails_list['link']},
+                                              {'$set': mails_list},
                                               upsert=True
                                               )  ## не работает
 
